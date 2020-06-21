@@ -2,6 +2,7 @@ import json
 import boto3
 from flatten_json import flatten
 
+
 def get_aws_arn(service, operation, service_object, object_arn, **paginate_params):
     arns = []
     client = boto3.client(service)
@@ -19,21 +20,19 @@ def get_state_arns(state_file):
         data = json.load(f)
 
     flat_json = flatten(data)
-    # print(json.dumps(flat_json, indent=4))
     # ARN's from state
 
     for key, value in list(flat_json.items()):
         if key.startswith('prior_state_values_'):
             del flat_json[key]
 
-    for key, value in flat_json.items():   # iter on both keys and values
+    for key, value in flat_json.items():
         if key.endswith('_arn'):
             list_state_arn.append(value)
     return list_state_arn
 
 list_state = get_state_arns('plan.json')
 
-### prior_state_values_
 
 def compare_function(resource_type_desc, list_aws):
 
@@ -50,7 +49,6 @@ list_dashboards = get_aws_arn('cloudwatch', 'list_dashboards', 'DashboardEntries
 list_topics = get_aws_arn('sns', 'list_topics', 'Topics', 'TopicArn')
 list_describe_db_instances = get_aws_arn('rds', 'describe_db_instances', 'DBInstances', 'DBInstanceArn')
 list_functions = get_aws_arn('lambda', 'list_functions', 'Functions', 'FunctionArn')
-
 
 compare_function("IAM Users", list_aws_user)
 compare_function("IAM Roles", list_roles)
