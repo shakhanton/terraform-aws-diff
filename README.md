@@ -1,10 +1,10 @@
-##How to prepare state
+## How to prepare state
 ```shell
 $ terraform plan -out=plan.out
 $ terraform show -json plan.out > plan.json
 ```
 
-##Resources that Support Diff Detection
+## Resources that Support Diff Detection
 The following resource types support diff detection.
 
 Service | Resource
