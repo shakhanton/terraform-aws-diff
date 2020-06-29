@@ -1,3 +1,9 @@
+## How to use
+1. Prepare state
+2. Place all your state jsons into plans folder
+3. Run main.py
+
+
 ## How to prepare state
 ```shell
 $ terraform plan -out=plan.out
